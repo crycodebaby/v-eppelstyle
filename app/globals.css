@@ -1,42 +1,31 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Design Tokens – EIN Ort für Farbwechsel */
+:root {
+  /* Grundfarben in HSL: leichter zu tönen/alphas */
+  --bg: 40 38% 97%; /* war creme #F9F7F3 */
+  --fg: 210 16% 20%; /* Text */
+  --creme: 40 38% 97%;
+  --charcoal: 206 18% 26%;
+  --heading-charcoal: 209 24% 23%;
+  --accent-coral: 16 100% 66%; /* #FF7F50 */
+  --coral-light: 19 100% 92%; /* #FFE5D9 */
+  --subtle: 215 20% 72%;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  @apply bg-creme text-charcoal;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Section-Wrapper: konsistente Abstände */
+@layer components {
+  .section-wrapper {
+    @apply container py-16 sm:py-20 lg:py-24;
+  }
+  .eyebrow {
+    @apply text-accent-coral font-semibold tracking-wide uppercase text-sm;
   }
 }

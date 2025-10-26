@@ -108,9 +108,13 @@ const priceCategories: PriceCategories = {
 };
 
 const statsItems = [
-  { end: 2, text: "Jahre Leidenschaft & Erfahrung", icon: "scissors" as const },
-  { end: 612, text: "Glückliche Stammkunden", icon: "family" as const },
-  { end: 78, text: "Strahlende Kinderaugen pro Monat", icon: "child" as const },
+  { end: 5, text: "Jahre Leidenschaft & Erfahrung", icon: "scissors" as const },
+  { end: 1412, text: "Glückliche Stammkunden", icon: "family" as const },
+  {
+    end: 228,
+    text: "Strahlende Kinderaugen pro Monat",
+    icon: "child" as const,
+  },
 ];
 
 const leistungenPreviewItems = [
@@ -183,7 +187,7 @@ export default function HomePage() {
         subtitle="Ihr Friseurmeister in Eppelborn – mit Herz und Handwerk."
         ctaText="Termin vereinbaren"
         ctaLink="/kontakt"
-        logoSrc="/images/logo/Friseurlogo-Barber-Saarland.png"
+        logoSrc="/images/logo/Friseurlogo-Barber_weiss_transparent.png"
       />
 
       {/* Willkommen */}
@@ -214,9 +218,9 @@ export default function HomePage() {
         <FadeInSection>
           <p className="mx-auto mb-8 max-w-3xl font-body text-lg leading-relaxed text-charcoal sm:text-xl">
             Inhaber Kesra Ibrahim, Friseurmeister aus Leidenschaft, hat mit
-            EppelStyle einen Ort geschaffen, an dem sich jeder Gast – ob groß
-            oder klein – sofort wohl und bestens beraten fühlt. Qualität und
-            Ihre Zufriedenheit sind unser täglicher Antrieb.
+            EppelStyle einen Ort geschaffen, an dem sich jeder Gast; ob groß
+            oder klein sofort wohl und bestens beraten fühlt. Qualität und Ihre
+            Zufriedenheit sind unser täglicher Antrieb.
           </p>
         </FadeInSection>
         <FadeInSection>

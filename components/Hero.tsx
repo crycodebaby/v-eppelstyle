@@ -9,7 +9,7 @@ export interface HeroProps {
   subtitle: string;
   ctaText: string;
   ctaLink: string;
-  logoSrc?: string;
+  logoSrc?: string; // Wird jetzt als Wasserzeichen verwendet
 }
 
 const containerVariants: Variants = {
@@ -25,7 +25,7 @@ const itemVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }, // <= geändert
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -34,7 +34,7 @@ const bgReveal: Variants = {
   visible: {
     scale: 1,
     opacity: 1,
-    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const }, // <= geändert
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -47,6 +47,7 @@ export default function Hero({
 }: HeroProps) {
   return (
     <motion.header
+      // WICHTIG: overflow-hidden ist hier entscheidend, damit das Logo angeschnitten wird
       className="relative w-full overflow-hidden bg-charcoal text-creme"
       variants={containerVariants}
       initial="hidden"
@@ -54,23 +55,37 @@ export default function Hero({
     >
       {/* Section height */}
       <div className="relative mx-auto grid min-h-[72vh] w-full max-w-6xl grid-cols-1 items-center gap-8 px-6 py-20 sm:min-h-[80vh] lg:min-h-screen lg:grid-cols-2">
-        {/* Content */}
+        {/* NEU: KREATIVES WASSERZEICHEN
+            Liegt bei z-0, hinter dem Content (z-10) und dem Mobile-BG (z-1)
+            aber über dem Desktop-Bilder-Stack (standard z-index)
+        */}
+        {logoSrc && (
+          <motion.div
+            className="pointer-events-none absolute -bottom-24 -left-32 z-0 h-auto w-[600px] -rotate-12 opacity-5 sm:-bottom-32 sm:-left-40 sm:w-[800px] lg:bottom-auto lg:left-1/4 lg:top-1/2 lg:w-[700px] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:opacity-8"
+            initial={{ opacity: 0, scale: 0.9, rotate: -20 }}
+            animate={{ opacity: [0.05, 0.1, 0.05], scale: 1, rotate: -12 }}
+            transition={{
+              duration: 15, // Sehr langsame, ruhige Animation
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
+          >
+            <Image
+              src={logoSrc}
+              alt="EppelStyle Logo Wasserzeichen"
+              width={700}
+              height={350}
+              className="h-full w-full object-contain"
+              priority={false}
+              aria-hidden="true"
+            />
+          </motion.div>
+        )}
+
+        {/* Content (z-10, liegt über allem) */}
         <div className="relative z-10">
-          {logoSrc ? (
-            <motion.div
-              className="mb-5 h-20 w-auto sm:h-24 lg:h-28"
-              variants={itemVariants}
-            >
-              <Image
-                src={logoSrc}
-                alt={`${title} Logo`}
-                width={224}
-                height={112}
-                className="h-full w-auto object-contain"
-                priority
-              />
-            </motion.div>
-          ) : null}
+          {/* Logo-Block aus dem Content-Flow entfernt */}
 
           <motion.h1
             className="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl"
@@ -97,9 +112,9 @@ export default function Hero({
           </motion.div>
         </div>
 
-        {/* Visual stack (right) */}
+        {/* Visual stack (right) (z-5, liegt hinter Content, aber über Wasserzeichen) */}
         <motion.div
-          className="relative z-0 hidden h-[540px] w-full lg:block"
+          className="relative z-5 hidden h-[540px] w-full lg:block"
           variants={bgReveal}
         >
           {/* Soft coral glow */}
@@ -162,9 +177,9 @@ export default function Hero({
           </motion.div>
         </motion.div>
 
-        {/* Mobile/Tablet background image (blend behind content) */}
+        {/* Mobile/Tablet background image (blend behind content) (z-1, liegt hinter Content, aber über Wasserzeichen) */}
         <motion.div
-          className="pointer-events-none absolute inset-0 -z-10 block bg-charcoal/50 lg:hidden"
+          className="pointer-events-none absolute inset-0 z-1 block bg-charcoal/50 lg:hidden"
           variants={bgReveal}
         >
           <Image
@@ -179,9 +194,10 @@ export default function Hero({
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator (z-10, liegt über allem) */}
       <motion.div
-        className="absolute bottom-8 z-10 cursor-pointer sm:bottom-10"
+        // Zentrierung des Scroll-Indikators
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 cursor-pointer sm:bottom-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}

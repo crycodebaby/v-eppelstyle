@@ -113,7 +113,7 @@ export default function Navbar() {
               scale: 1.05,
               transition: { type: "spring", stiffness: 300 },
             }}
-            className="relative h-12 w-[140px] sm:h-16 sm:w-[180px] lg:h-[70px] lg:w-[240px]"
+            className="relative h-14 w-[265px] sm:h-24 sm:w-[270px] lg:h-40 lg:w-[380px]"
           >
             <Image
               src="/images/logo/Friseurlogo-Barber-Saarland.png"

@@ -17,11 +17,11 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "EppelStyle Barber",
   description: "Moderne Haarschnitte & Bartstyles – EppelStyle Barber.",
-  metadataBase: new URL("https://your-domain.vercel.app"), // später anpassen
+  metadataBase: new URL("https://eppelstyle.de"),
   openGraph: {
     title: "EppelStyle Barber",
     description: "Moderne Haarschnitte & Bartstyles.",
-    url: "https://your-domain.vercel.app",
+    url: "https://eppelstyle.de",
     siteName: "EppelStyle Barber",
     type: "website",
   },

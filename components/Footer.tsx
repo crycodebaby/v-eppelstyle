@@ -71,17 +71,16 @@ export default function Footer() {
               aria-label="Zur Startseite EppelStyle"
               className="inline-block"
             >
-              {/* Markenlogo kompakt, ohne Weißraum – nutze die beschnittene PNG */}
               <Image
                 src="/images/logo/Friseurlogo-Barber_weiss_transparent.png"
                 alt="EppelStyle Logo"
                 width={445}
                 height={280}
-                className="block h-auto w-auto"
-                style={{ width: "clamp(160px, 26vw, 280px)" }}
                 priority={false}
+                className="h-10 w-auto object-contain sm:h-12 md:h-14 lg:h-16"
               />
             </Link>
+
             <p className="mt-3 font-body text-sm text-creme/70">
               Friseurmeisterbetrieb in Eppelborn. Moderne Schnitte, präzise
               Barber-Styles und ehrliche Beratung.

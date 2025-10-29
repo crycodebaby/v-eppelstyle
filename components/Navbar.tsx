@@ -112,7 +112,7 @@ export default function Navbar() {
       </a>
 
       <motion.nav
-        className={`sticky top-0 z-30 bg-creme/95 backdrop-blur-md transition-all duration-300 ease-out py-1 sm:py-2 lg:py-3 ${
+        className={`sticky top-0 z-30 bg-creme/95 backdrop-blur-md transition-all duration-300 ease-out ${
           isScrolled || isOpen ? "shadow-md" : "shadow-none"
         }`}
         initial={{ y: -100, opacity: 0 }}
@@ -121,9 +121,9 @@ export default function Navbar() {
         role="navigation"
         aria-label="Hauptnavigation"
       >
-        <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* LOGO — korrektes Seitenverhältnis, keine übertriebene Größe */}
-          {/* Logo – kompakter, ohne übermäßige Höhe */}
+        {/* WICHTIG: kleinere Höhe, kompakteres Padding */}
+        <div className="mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16 sm:h-20 lg:h-[84px]">
+          {/* Logo – ohne übermäßigen Raum */}
           <Link
             href="/"
             aria-label="Zur Startseite EppelStyle"
@@ -132,20 +132,16 @@ export default function Navbar() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.45, delay: 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className="leading-none"
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex items-center h-24 sm:h-26" // Höhe fixieren statt Padding auf der Navbar
             >
               <Image
                 src="/images/logo/Friseurlogo-Barber-Saarland.png"
                 alt="EppelStyle Logo"
-                width={445}
-                height={280}
+                width={400} // tatsächliche Pixelbreite, kontrolliert Skalierung
+                height={400} // quadratisch = kein Stretch
                 priority
-                className="block h-auto w-auto"
-                style={{
-                  width: "clamp(140px, 24vw, 280px)", // vorher 220–550 → jetzt deutlich kompakter
-                }}
+                className="h-full w-auto object-contain"
               />
             </motion.div>
           </Link>

@@ -2,30 +2,167 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design Tokens – EIN Ort für Farbwechsel */
+/* =========================
+   Design Tokens (CI bleibt gleich)
+   ========================= */
 :root {
-  /* Grundfarben in HSL: leichter zu tönen/alphas */
-  --bg: 40 38% 97%; /* war creme #F9F7F3 */
-  --fg: 210 16% 20%; /* Text */
+  /* HSL → leichte Tints/Transparenzen */
+  --bg: 40 38% 97%; /* #F9F7F3 */
+  --fg: 210 16% 20%;
   --creme: 40 38% 97%;
   --charcoal: 206 18% 26%;
   --heading-charcoal: 209 24% 23%;
-  --accent-coral: 16 100% 66%; /* #FF7F50 */
-  --coral-light: 19 100% 92%; /* #FFE5D9 */
+  --accent-coral: 16 100% 66%;
+  --coral-light: 19 100% 92%;
   --subtle: 215 20% 72%;
+
+  /* Fluid Type: Basis – skaliert minimal, ohne Sprünge */
+  --text-base: clamp(0.98rem, 0.92rem + 0.4vw, 1.0625rem); /* ~15.7–17px */
+  --text-sm: clamp(0.9rem, 0.86rem + 0.25vw, 0.98rem);
+  --text-lg: clamp(1.05rem, 1rem + 0.6vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 1.2vw, 1.75rem);
+  --text-2xl: clamp(1.45rem, 1.2rem + 2vw, 2.2rem);
+  --text-3xl: clamp(1.75rem, 1.3rem + 3vw, 2.6rem);
 }
 
+/* =========================
+   Base Resets – Mobile-First
+   ========================= */
+html:focus-within {
+  scroll-behavior: smooth;
+}
 html,
 body {
+  height: 100%;
+}
+html {
+  /* verhindert horizontales Scrollen durch Subpixel-Overflows */
+  overflow-x: hidden;
+}
+body {
   @apply bg-creme text-charcoal;
+  overflow-x: clip; /* moderner, clippt statt scrollen */
+  font-size: var(--text-base);
+  font-family: var(
+    --font-body,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji"
+  );
+  text-rendering: optimizeLegibility;
 }
 
-/* Section-Wrapper: konsistente Abstände */
+/* Medien responsiv per Default */
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+svg {
+  display: block; /* entfernt Inline-Gaps */
+}
+picture {
+  display: block;
+}
+
+/* Typografie – bessere Lesbarkeit */
+p {
+  text-wrap: pretty; /* Tailwind util: text-pretty – hier als Fallback */
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance; /* Tailwind util: text-balance – Fallback */
+  line-height: 1.2;
+  font-family: var(
+    --font-heading,
+    ui-serif,
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    Times,
+    serif
+  );
+}
+h1 {
+  font-size: var(--text-3xl);
+}
+h2 {
+  font-size: var(--text-2xl);
+}
+h3 {
+  font-size: var(--text-xl);
+}
+
+/* Links: klar und zugänglich */
+a {
+  @apply underline-offset-2 decoration-1 hover:underline;
+}
+
+/* Inputs/Buttons – Mobile ergonomisch */
+button,
+input,
+select,
+textarea {
+  font-size: 1rem; /* vermeidet iOS Auto-Zoom <16px */
+}
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Safe-Areas für fixed Header/Footer oder Full-bleed Bereiche */
+.safe-inline {
+  padding-inline: max(1rem, env(safe-area-inset-left));
+  padding-inline: max(1rem, env(safe-area-inset-right));
+}
+.safe-block {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* =========================
+   Components Layer
+   ========================= */
 @layer components {
+  /* Section-Wrapper: Mobile zuerst, dann hochskalieren */
   .section-wrapper {
-    @apply container py-16 sm:py-20 lg:py-24;
+    @apply container py-12 xs:py-14 md:py-16 lg:py-20;
   }
+
   .eyebrow {
-    @apply text-accent-coral font-semibold tracking-wide uppercase text-sm;
+    @apply text-accent-coral font-semibold tracking-wide uppercase;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+  }
+
+  /* Karten/Grids als Container-Query-Zone (optional) */
+  .cq {
+    container-type: inline-size;
+  }
+}
+
+/* =========================
+   Utilities Layer – kleine Helfer
+   ========================= */
+@layer utilities {
+  /* Verhindert, dass innere Schatten/Filter horizontale Scrollbars erzeugen */
+  .overflow-clip {
+    overflow: clip;
+  }
+  /* Komfortable Scroll-Anker (Header/Canvas-Abstand) */
+  .scroll-mt-header {
+    scroll-margin-top: 5rem; /* an deine Headerhöhe anpassen */
+  }
+  /* Debug: kurz aktivieren, um Ausreißer zu finden */
+  .debug-outline * {
+    outline: 1px solid rgba(255, 0, 0, 0.15);
   }
 }

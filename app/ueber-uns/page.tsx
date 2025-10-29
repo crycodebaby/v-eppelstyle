@@ -1,3 +1,4 @@
+// app/ueber-uns/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
 import Hero from "@/components/Hero";
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title:
     "Über uns – EppelStyle Friseurmeister in Eppelborn | Team & Philosophie",
   description:
-    "Lerne EppelStyle kennen: Meisterbetrieb in 66571 Eppelborn mit Herz für moderne Haarschnitte und präzise Barber-Styles. Für Damen, Herren & Kids. Wir sind für dich da – auch aus Lebach, Illingen, Uchtelfangen, Schmelz und Umgebung.",
+    "Lerne EppelStyle kennen: Meisterbetrieb in 66571 Eppelborn mit Herz für moderne Haarschnitte und präzise Barber-Styles. Für Damen, Herren und Kids. Wir sind für dich da – auch aus Lebach, Illingen, Uchtelfangen, Schmelz und Umgebung.",
   alternates: { canonical: "/ueber-uns" },
   openGraph: {
     title: "Über uns – EppelStyle Friseurmeister in Eppelborn",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Über uns – EppelStyle Friseurmeister in Eppelborn",
     description:
-      "Lerne Team & Philosophie von EppelStyle kennen. Friseurmeisterbetrieb für Damen, Herren & Kids in Eppelborn.",
+      "Lerne Team und Philosophie von EppelStyle kennen. Friseurmeisterbetrieb für Damen, Herren und Kids in Eppelborn.",
   },
 };
 
@@ -48,19 +49,19 @@ const teamMembers: TeamMember[] = [
     name: "Mohsin",
     role: "Stylingexperte Herren",
     image: "/images/team/Mohsin-eppelstyle.png",
-    desc: "Über 15 Jahre Erfahrung, präzises Handwerk und ein klares Ziel: ein Salon, in dem sich jede Person willkommen fühlt – mit ehrlicher Beratung und Ergebnissen, die lange Freude machen.",
+    desc: "Über sieben Jahre Erfahrung, präzises Handwerk und ein klares Ziel: ein Salon, in dem sich jede Person willkommen fühlt. Ehrliche Beratung und Ergebnisse, die lange Freude machen.",
   },
   {
     name: "Alan",
-    role: "Top-Stylist & Farbexperte",
+    role: "Top-Stylist und Farbexperte",
     image: "/images/team/Alan-eppelstyle.png",
-    desc: "Leidenschaft für Farbarbeiten, Balayage und typgerechte Damenhaarschnitte. Sorgfalt, Kreativität und feines Gespür für Nuancen.",
+    desc: "Leidenschaft für Farbarbeiten, Balayage und typgerechte Damenhaarschnitte. Sorgfalt, Kreativität und ein gutes Gespür für Nuancen.",
   },
   {
     name: "Berzan",
-    role: "Barber & Herren-Spezialist",
+    role: "Barber und Herren-Spezialist",
     image: "/images/team/Berzan-eppelstyle.png",
-    desc: "Klassische Barber-Techniken, moderne Fades und exakte Konturen. Präzision, Stil und entspannte Atmosphäre am Stuhl.",
+    desc: "Klassische Barber-Techniken, moderne Fades und exakte Konturen. Präzision, Stil und eine entspannte Atmosphäre am Stuhl.",
   },
 ];
 
@@ -78,8 +79,8 @@ const philosophiePunkte = [
   },
   {
     icon: "✂️",
-    title: "Modern & Handwerk",
-    text: "Wir verbinden Meister-Know-how mit Trends und stetiger Weiterbildung – für Schnitte, die zu dir passen.",
+    title: "Modern und Handwerk",
+    text: "Wir verbinden Meister-Know-how mit Trends und Weiterbildung. So entstehen Schnitte, die wirklich zu dir passen.",
   },
   {
     icon: "😊",
@@ -129,21 +130,23 @@ export default function UeberUnsPage() {
 
   return (
     <main className="bg-creme">
-      {/* Hero für Über uns */}
+      {/* Hero */}
       <Hero
         title="Wer wir sind"
-        subtitle="Leidenschaft für Haare, Herz für Menschen – willkommen bei EppelStyle."
+        subtitle="Leidenschaft für Haare. Herz für Menschen. Willkommen bei EppelStyle."
         ctaText="Termin vereinbaren"
         ctaLink="/kontakt"
         logoSrc="/images/logo/Friseurlogo-Barber-Saarland.png"
       />
 
-      {/* Sticky Call-to-Actions */}
-      <StickyCTA
-        contactHref="/kontakt"
-        mapsHref="https://g.co/kgs/GDJvoGW"
-        mapsLabel="Karte"
-      />
+      {/* Sticky Call-to-Actions (mit Safe-Area) */}
+      <div className="safe-inline safe-block">
+        <StickyCTA
+          contactHref="/kontakt"
+          mapsHref="https://g.co/kgs/GDJvoGW"
+          mapsLabel="Karte"
+        />
+      </div>
 
       {/* Vision / Story */}
       <section className="section-wrapper">
@@ -156,21 +159,21 @@ export default function UeberUnsPage() {
               </h1>
               <p className="mb-4 font-body text-lg leading-relaxed text-charcoal sm:text-xl">
                 Inhaber <strong>Kesra Ibrahim</strong>, Friseurmeister mit über
-                15&nbsp;Jahren Erfahrung, verbindet modernes Handwerk mit
-                ehrlicher Beratung. Ziel ist ein Ort, an dem sich jede Person –
-                vom Kind bis zur Seniorin – willkommen und bestens aufgehoben
+                sieben&nbsp;Jahren Erfahrung, verbindet modernes Handwerk mit
+                ehrlicher Beratung. Ziel ist ein Ort, an dem sich jede Person —
+                vom Kind bis zur Seniorin — willkommen und bestens aufgehoben
                 fühlt.
               </p>
               <p className="mb-4 font-body text-lg leading-relaxed text-charcoal sm:text-xl">
                 Wir stehen für präzise Haarschnitte, saubere Konturen und Looks,
                 die zu dir passen. Ob schnelle Auffrischung oder kompletter
-                Typwechsel – wir nehmen uns Zeit und liefern Qualität.
+                Typwechsel: Wir nehmen uns Zeit und liefern Qualität.
               </p>
               <p className="font-body text-lg leading-relaxed text-charcoal sm:text-xl">
                 Du kommst aus <strong>Eppelborn 66571</strong> oder aus der
                 Umgebung wie <strong>Lebach</strong>, <strong>Illingen</strong>,{" "}
                 <strong>Uchtelfangen</strong> oder <strong>Schmelz</strong>?
-                Schön, dass du da bist – wir freuen uns auf dich!
+                Schön, dass du da bist. Wir freuen uns auf dich.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -214,7 +217,7 @@ export default function UeberUnsPage() {
         <div className="mx-auto max-w-6xl">
           <FadeInSection>
             <h2 className="mb-10 text-center font-heading text-3xl text-heading-charcoal sm:text-4xl lg:text-5xl">
-              Unsere Werte – dein Erlebnis
+              Unsere Werte, dein Erlebnis
             </h2>
           </FadeInSection>
 
@@ -274,7 +277,7 @@ export default function UeberUnsPage() {
                   </p>
                 </div>
 
-                {/* Hover Overlay (rein dekorativ, no motion in Server-Page) */}
+                {/* Hover Overlay (rein dekorativ) */}
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -292,7 +295,7 @@ export default function UeberUnsPage() {
         <div className="mx-auto max-w-6xl">
           <FadeInSection>
             <h2 className="mb-6 text-center font-heading text-2xl text-heading-charcoal sm:text-3xl">
-              Wir sind für dich da – in Eppelborn und Umgebung
+              Wir sind für dich da in Eppelborn und Umgebung
             </h2>
           </FadeInSection>
           <FadeInSection>
@@ -318,7 +321,7 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* JSON-LD ausspielen */}
+      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

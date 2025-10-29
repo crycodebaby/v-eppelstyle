@@ -1,3 +1,4 @@
+// app/kontakt/page.tsx
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import FadeInSection from "@/components/FadeInSection";
@@ -8,12 +9,12 @@ import AnimatedButton from "@/components/AnimatedButton";
 export const metadata: Metadata = {
   title: "Kontakt & Termin – EppelStyle Friseur Eppelborn",
   description:
-    "Kontaktiere EppelStyle in 66571 Eppelborn für deinen nächsten Friseurtermin. Adresse, Öffnungszeiten, Telefon, E-Mail oder Formular — wir freuen uns auf dich.",
+    "Kontaktiere EppelStyle in 66571 Eppelborn für deinen nächsten Friseurtermin. Adresse, Öffnungszeiten, Telefon, E-Mail oder Formular. Wir freuen uns auf dich.",
   alternates: { canonical: "/kontakt" },
   openGraph: {
     title: "Kontakt & Termin – EppelStyle Friseur Eppelborn",
     description:
-      "Telefon, E-Mail, Kontaktformular und Wegbeschreibung — so erreichst du EppelStyle in Eppelborn.",
+      "Telefon, E-Mail, Kontaktformular und Wegbeschreibung. So erreichst du EppelStyle in Eppelborn.",
     url: "/kontakt",
     type: "website",
   },
@@ -27,6 +28,11 @@ export const metadata: Metadata = {
 
 const phoneNumber = "+4968815951818";
 const emailAddress = "info@eppelstyle.de";
+
+/** Dein geteilter Google-Maps-Link (für Öffnen/Route) */
+const mapsShareUrl = "https://maps.app.goo.gl/LvURVBAfHF5UM4KH7";
+
+/** Saubere Embed-URL für das iFrame (Rendering in der Seite) */
 const mapsEmbedUrl =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2609.001070993938!2d6.962780676901662!3d49.4056899632699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4795b06dc09e70c9%3A0x8b9287e62f08f78b!2sEppelStyle!5e0!3m2!1sde!2sde!4v1716937647636!5m2!1sde!2sde";
 
@@ -36,7 +42,7 @@ const facebookUrl =
 
 /** ---------- Seite ---------- */
 export default function KontaktPage() {
-  // JSON-LD: HairSalon mit ContactPoints & SameAs
+  // JSON-LD: HairSalon mit ContactPoints, SameAs und hasMap
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HairSalon",
@@ -52,7 +58,9 @@ export default function KontaktPage() {
       addressCountry: "DE",
     },
     openingHours: "Mo-Sa 09:00-19:00",
-    sameAs: [instagramUrl, facebookUrl, "https://g.co/kgs/GDJvoGW"],
+    sameAs: [instagramUrl, facebookUrl, mapsShareUrl],
+    hasMap: mapsShareUrl,
+    geo: { "@type": "GeoCoordinates", latitude: 49.40569, longitude: 6.96278 },
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -70,16 +78,16 @@ export default function KontaktPage() {
       {/* Hero */}
       <Hero
         title="Nimm Kontakt auf"
-        subtitle="Wir freuen uns auf deine Nachricht oder deinen Anruf für den nächsten Wohlfühl-Termin."
+        subtitle="Wir freuen uns auf deine Nachricht oder deinen Anruf für den nächsten Wohlfühltermin."
         ctaText="Jetzt anrufen"
         ctaLink={`tel:${phoneNumber}`}
         logoSrc="/images/logo/Friseurlogo-Barber-Saarland.png"
       />
 
-      {/* Sticky CTAs (unten rechts) */}
+      {/* Sticky CTAs (unten rechts) – nutzt den Share-Link */}
       <StickyCTA
         contactHref="/kontakt#formular"
-        mapsHref="https://g.co/kgs/GDJvoGW"
+        mapsHref={mapsShareUrl}
         mapsLabel="Karte"
       />
 
@@ -92,8 +100,8 @@ export default function KontaktPage() {
         </FadeInSection>
         <FadeInSection>
           <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-charcoal sm:text-xl">
-            Am besten erreichst du uns telefonisch oder per E-Mail. Alternativ
-            kannst du das Formular nutzen oder uns auf Instagram bzw. Facebook
+            Am besten erreichst du uns telefonisch oder per E-Mail. Du kannst
+            auch das Formular nutzen oder uns auf Instagram und Facebook
             schreiben.
           </p>
         </FadeInSection>
@@ -114,7 +122,7 @@ export default function KontaktPage() {
                   <p>Kirchplatz 11</p>
                   <p>66571 Eppelborn, Saarland</p>
                   <p className="mt-2">
-                    Telefon:&nbsp;
+                    Telefon{" "}
                     <a
                       href={`tel:${phoneNumber}`}
                       className="font-medium text-accent-coral hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-coral"
@@ -123,7 +131,7 @@ export default function KontaktPage() {
                     </a>
                   </p>
                   <p>
-                    E-Mail:&nbsp;
+                    E-Mail{" "}
                     <a
                       href={`mailto:${emailAddress}`}
                       className="font-medium text-accent-coral hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-coral"
@@ -140,8 +148,8 @@ export default function KontaktPage() {
                 </h2>
                 <p className="font-body text-base leading-relaxed text-charcoal sm:text-lg">
                   Ruf uns an oder schreib eine E-Mail für deinen Wunschtermin.
-                  Spontane Besuche sind willkommen, dennoch empfehlen wir eine
-                  Terminvereinbarung, um Wartezeiten zu vermeiden.
+                  Spontane Besuche sind willkommen. Wir empfehlen eine
+                  Terminvereinbarung, damit du keine Wartezeit hast.
                 </p>
               </div>
 
@@ -150,7 +158,7 @@ export default function KontaktPage() {
                   Öffnungszeiten
                 </h2>
                 <p className="font-body text-base text-charcoal sm:text-lg">
-                  Montag – Samstag: 09:00 – 19:00 Uhr
+                  Montag bis Samstag: 09:00–19:00 Uhr
                   <br />
                   Sonntag: geschlossen
                 </p>
@@ -218,11 +226,23 @@ export default function KontaktPage() {
                   <iframe
                     className="h-full w-full"
                     src={mapsEmbedUrl}
-                    allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="EppelStyle Friseursalon auf Google Maps"
+                    aria-label="Karte von EppelStyle in Eppelborn"
                   />
+                </div>
+                <div className="mt-3">
+                  <AnimatedButton
+                    href={mapsShareUrl}
+                    variant="secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    ariaLabel="Route zu EppelStyle in Google Maps öffnen"
+                    className="px-4"
+                  >
+                    Karte in Google Maps öffnen
+                  </AnimatedButton>
                 </div>
               </div>
 
@@ -252,6 +272,14 @@ export default function KontaktPage() {
                 method="POST"
                 className="space-y-5 sm:space-y-6"
               >
+                {/* Honeypot gegen Spam (unsichtbar für Nutzer) */}
+                <input
+                  type="text"
+                  name="_gotcha"
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
                 <div>
                   <label
                     htmlFor="name"
@@ -315,14 +343,14 @@ export default function KontaktPage() {
                 </AnimatedButton>
 
                 <p className="text-center font-body text-sm text-charcoal/70">
-                  Alternativ:&nbsp;
+                  Alternativ{" "}
                   <a
                     href={`tel:${phoneNumber}`}
                     className="font-medium text-accent-coral hover:underline"
                   >
                     {phoneNumber.replace("+49", "0")}
-                  </a>
-                  &nbsp;oder&nbsp;
+                  </a>{" "}
+                  oder{" "}
                   <a
                     href={`mailto:${emailAddress}`}
                     className="font-medium text-accent-coral hover:underline"

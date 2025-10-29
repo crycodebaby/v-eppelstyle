@@ -1,8 +1,9 @@
+// app/leistungen/page.tsx
 import Image from "next/image";
-import Hero from "@/components/Hero"; // Client-Komponente (ok)
-import AnimatedButton from "@/components/AnimatedButton"; // Client (ok)
-import StickyCTA from "@/components/StickyCTA"; // Client (ok)
-import FadeInSection from "@/components/FadeInSection"; // Client (ok)
+import Hero from "@/components/Hero";
+import AnimatedButton from "@/components/AnimatedButton";
+import StickyCTA from "@/components/StickyCTA";
+import FadeInSection from "@/components/FadeInSection";
 import LeistungenHero from "@/components/LeistungenHero";
 
 // SEO
@@ -162,23 +163,126 @@ const services: Services = {
   ],
 };
 
+// Klein: Cards/Listen; ab sm: Tabelle
+function ResponsiveServiceList({
+  category,
+  items,
+}: {
+  category: keyof Services;
+  items: ServiceItem[];
+}) {
+  return (
+    <div id={`leistungen-${category.toLowerCase()}`} className="cq">
+      {/* Mobile: Kartenliste */}
+      <ul className="sm:hidden space-y-3">
+        {items.map((item, i) => (
+          <li
+            key={`${category}-card-${i}`}
+            className="rounded-lg bg-white p-4 shadow-card"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-medium text-heading-charcoal">{item.name}</p>
+                <p className="mt-1 text-sm text-charcoal/80 break-words">
+                  {item.length !== "-" ? item.length : "–"}
+                </p>
+                {item.tooltip ? (
+                  <p className="mt-1 text-xs text-charcoal/70">
+                    {item.tooltip}
+                  </p>
+                ) : null}
+              </div>
+              <div className="shrink-0 text-right font-semibold text-heading-charcoal">
+                {item.price}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {/* Ab sm: Tabelle */}
+      <div className="hidden sm:block rounded-lg bg-white p-3 shadow-inner sm:p-5">
+        <div className="relative overflow-x-auto">
+          <table className="w-full border-collapse text-left">
+            <caption className="sr-only">Preisliste – {category}</caption>
+            <thead className="border-b-2 border-accent-coral/50">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-base font-semibold text-heading-charcoal sm:px-4 sm:text-lg"
+                >
+                  Dienstleistung
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-center text-base font-semibold text-heading-charcoal sm:px-4 sm:text-lg"
+                >
+                  Details / Haarlänge
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-right text-base font-semibold text-heading-charcoal sm:px-4 sm:text-lg"
+                >
+                  Preis
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, i) => (
+                <tr
+                  key={`${category}-${item.name}-${i}`}
+                  className="border-b border-coral-light/70 transition-colors duration-200 last:border-b-0 hover:bg-coral-light/40"
+                >
+                  <td className="px-3 py-3.5 font-body text-sm text-charcoal sm:px-4 sm:text-base">
+                    {item.name}
+                  </td>
+                  <td className="group relative px-3 py-3.5 text-center font-body text-sm text-charcoal sm:px-4 sm:text-base">
+                    <span className="inline-block align-middle">
+                      {item.length}
+                    </span>
+                    {/* Touch-/Keyboard-freundlicher Tooltip */}
+                    {item.tooltip ? (
+                      <span
+                        className="absolute bottom-full left-1/2 z-20 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-charcoal px-2.5 py-1.5 text-xs text-creme shadow-lg group-hover:block group-focus-within:block"
+                        role="tooltip"
+                        aria-live="polite"
+                      >
+                        {item.tooltip}
+                      </span>
+                    ) : null}
+                  </td>
+                  <td className="px-3 py-3.5 text-right font-body text-sm font-medium text-charcoal sm:px-4 sm:text-base">
+                    {item.price}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LeistungenPage() {
   return (
     <main>
       <LeistungenHero imageSrc="/images/hero/leistungenhero.webp" />
 
-      {/* Sticky CTAs rechts unten */}
-      <StickyCTA
-        contactHref="/kontakt"
-        mapsHref="https://g.co/kgs/GDJvoGW"
-        mapsLabel="Karte"
-      />
+      {/* Sticky CTAs rechts unten (mit Safe-Area) */}
+      <div className="safe-inline safe-block">
+        <StickyCTA
+          contactHref="/kontakt"
+          mapsHref="https://g.co/kgs/GDJvoGW"
+          mapsLabel="Karte"
+        />
+      </div>
 
       {/* Intro */}
       <section className="section-wrapper">
         <div className="mx-auto max-w-3xl text-center">
           <FadeInSection>
-            <h1 className="mb-4 font-heading text-4xl text-heading-charcoal sm:text-5xl lg:text-5xl">
+            <h1 className="mb-4 scroll-mt-header font-heading text-4xl text-heading-charcoal xs:text-5xl">
               Unsere Preisliste
             </h1>
           </FadeInSection>
@@ -195,61 +299,27 @@ export default function LeistungenPage() {
       </section>
 
       {/* Kategorien */}
-      <div className="container space-y-16 pb-20 sm:space-y-20">
+      <div className="container space-y-12 pb-16 sm:space-y-16 sm:pb-20">
         {Object.entries(services).map(([category, items]) => (
           <section
             key={category}
-            className="mx-auto max-w-5xl rounded-xl bg-creme px-4 py-12 shadow-card sm:px-6 sm:py-16"
+            className="mx-auto max-w-5xl rounded-xl bg-creme px-4 py-8 shadow-card sm:px-6 sm:py-12"
+            aria-labelledby={`heading-${category.toLowerCase()}`}
           >
             <FadeInSection>
-              <h2 className="mb-8 text-center font-heading text-3xl text-heading-charcoal sm:mb-10 sm:text-4xl">
+              <h2
+                id={`heading-${category.toLowerCase()}`}
+                className="mb-6 text-center font-heading text-2xl text-heading-charcoal sm:mb-8 sm:text-4xl"
+              >
                 Für {category}
               </h2>
             </FadeInSection>
 
             <FadeInSection>
-              <div className="rounded-lg bg-white p-3 shadow-inner sm:p-5">
-                <div className="relative overflow-x-auto">
-                  <table className="min-w-[640px] w-full border-collapse text-left">
-                    <thead className="border-b-2 border-accent-coral/50">
-                      <tr>
-                        <th className="px-3 py-3.5 text-base font-semibold text-heading-charcoal sm:px-4 sm:text-lg">
-                          Dienstleistung
-                        </th>
-                        <th className="px-3 py-3.5 text-center text-base font-semibold text-heading-charcoal sm:px-4 sm:text-lg">
-                          Details / Haarlänge
-                        </th>
-                        <th className="px-3 py-3.5 text-right text-base font-semibold text-heading-charcoal sm:px-4 sm:text-lg">
-                          Preis
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {items.map((item, i) => (
-                        <tr
-                          key={`${category}-${item.name}-${i}`}
-                          className="border-b border-coral-light/70 transition-colors duration-200 last:border-b-0 hover:bg-coral-light/40"
-                        >
-                          <td className="px-3 py-3.5 font-body text-sm text-charcoal sm:px-4 sm:text-base">
-                            {item.name}
-                          </td>
-                          <td className="group relative px-3 py-3.5 text-center font-body text-sm text-charcoal sm:px-4 sm:text-base">
-                            {item.length}
-                            {item.tooltip ? (
-                              <span className="absolute bottom-full left-1/2 z-20 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-charcoal px-2.5 py-1.5 text-xs text-creme shadow-lg group-hover:block">
-                                {item.tooltip}
-                              </span>
-                            ) : null}
-                          </td>
-                          <td className="px-3 py-3.5 text-right font-body text-sm font-medium text-charcoal sm:px-4 sm:text-base">
-                            {item.price}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <ResponsiveServiceList
+                category={category as keyof Services}
+                items={items}
+              />
             </FadeInSection>
           </section>
         ))}

@@ -258,7 +258,7 @@ export default function KontaktPage() {
             </div>
           </FadeInSection>
 
-          {/* Rechte Spalte: Formular */}
+          {/* Rechte Spalte: Formular (Formcarry) */}
           <FadeInSection>
             <div
               id="formular"
@@ -267,10 +267,15 @@ export default function KontaktPage() {
               <h2 className="mb-6 text-center font-heading text-3xl text-heading-charcoal sm:text-4xl">
                 Schreib uns eine Nachricht
               </h2>
+
+              {/* >>>>>>>>>>>>>>>>>  FORM CARRY  <<<<<<<<<<<<<<<<< */}
               <form
-                action="https://formspree.io/f/xdkgbgrq"
+                action="https://formcarry.com/s/AhVw9wwKz96"
                 method="POST"
+                acceptCharset="UTF-8"
                 className="space-y-5 sm:space-y-6"
+                aria-label="Kontaktformular EppelStyle"
+                noValidate
               >
                 {/* Honeypot gegen Spam (unsichtbar für Nutzer) */}
                 <input
@@ -280,6 +285,7 @@ export default function KontaktPage() {
                   tabIndex={-1}
                   autoComplete="off"
                 />
+
                 <div>
                   <label
                     htmlFor="name"
@@ -360,6 +366,7 @@ export default function KontaktPage() {
                   .
                 </p>
               </form>
+              {/* >>>>>>>>>>>>>>>>>  /FORM CARRY  <<<<<<<<<<<<<<<<< */}
             </div>
           </FadeInSection>
         </div>

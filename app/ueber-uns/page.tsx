@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/team/kesra_ibrahim_eppelstyle_portrait.webp",
+        url: "/images/team/gruppe.webp",
         width: 1080,
         height: 1350,
-        alt: "Kesra Ibrahim – Inhaber von EppelStyle",
+        alt: "Teammitglieder von EppelStyle",
       },
     ],
   },

@@ -108,7 +108,7 @@ export default function UeberUnsPage() {
     "@type": "HairSalon",
     name: "EppelStyle Barber",
     url: "https://eppelstyle.de",
-    image: "/images/team/kesra_ibrahim_eppelstyle_portrait.webp",
+    image: "/images/team/gruppe.webp",
     telephone: "+4968815951818",
     address: {
       "@type": "PostalAddress",
@@ -200,8 +200,8 @@ export default function UeberUnsPage() {
           <FadeInSection>
             <div className="relative aspect-[4/5] overflow-hidden rounded-xl shadow-subtle-dark">
               <Image
-                src="/images/team/kesra_ibrahim_eppelstyle_portrait.webp"
-                alt="Kesra Ibrahim, Inhaber und Friseurmeister bei EppelStyle in Eppelborn"
+                src="/images/team/gruppe.webp"
+                alt="Teammitglieder und Friseurmeister bei EppelStyle in Eppelborn"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"

@@ -32,7 +32,7 @@ const smairysTextVariants: Variants = {
 };
 
 const EPPELSTYLE_PHONE = "+4968815951818";
-const EPPELSTYLE_MAIL = "info@eppelstyle.de";
+const EPPELSTYLE_MAIL = "eppelstyle8@gmail.com";
 const EPPELSTYLE_INSTAGRAM = "https://www.instagram.com/eppel_style/";
 const EPPELSTYLE_INSTAGRAM_HANDLE = "@eppel_style";
 const EPPELSTYLE_FACEBOOK =

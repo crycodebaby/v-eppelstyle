@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 const phoneNumber = "+4968815951818";
-const emailAddress = "info@eppelstyle.de";
+const emailAddress = "eppelstyle8@gmail.com";
 
 /** Dein geteilter Google-Maps-Link (für Öffnen/Route) */
 const mapsShareUrl = "https://maps.app.goo.gl/LvURVBAfHF5UM4KH7";
